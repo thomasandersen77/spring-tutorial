@@ -23,9 +23,9 @@ class SpringTutorialApplicationTests {
                 .ifPresentOrElse(clientResponse -> {
 					Mono<String> res = clientResponse.bodyToMono(String.class);
 					System.out.println(res.block());
-				}, () -> {
-
-				});
+                }, () -> {
+                    System.err.println("inside runnable");
+                });
 
     }
 
