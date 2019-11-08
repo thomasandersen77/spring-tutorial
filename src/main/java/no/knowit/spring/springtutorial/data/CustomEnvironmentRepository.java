@@ -30,10 +30,10 @@ public class CustomEnvironmentRepository extends NativeEnvironmentRepository {
     public void setSearchLocations(String... locations) {
         try {
             Path root = Path.of(locations[0].substring(locations[0].indexOf(":") + 1));
-            String[] locations1 = Files.walk(root)
+            super.setSearchLocations(Files.walk(root)
                     .filter(Files::isDirectory)
-                    .map(Path::toString).toArray(String[]::new);
-            super.setSearchLocations(locations1);
+                    .map(Path::toString)
+                    .toArray(String[]::new));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
