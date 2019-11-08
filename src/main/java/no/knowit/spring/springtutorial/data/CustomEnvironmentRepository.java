@@ -29,14 +29,13 @@ public class CustomEnvironmentRepository extends NativeEnvironmentRepository {
     @Override
     public void setSearchLocations(String... locations) {
         try {
-            List<String> directorties = Files.walk(Path.of(locations[0].substring(locations[0].indexOf(":")+1)))
+            Path root = Path.of(locations[0].substring(locations[0].indexOf(":") + 1));
+            String[] locations1 = Files.walk(root)
                     .filter(Files::isDirectory)
-                    .map(Path::toString)
-                    .collect(Collectors.toList());
-            String[] locations1 = directorties.toArray(new String[directorties.size()]);
+                    .map(Path::toString).toArray(String[]::new);
             super.setSearchLocations(locations1);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 }
