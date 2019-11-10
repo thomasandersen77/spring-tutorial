@@ -9,7 +9,6 @@ import reactor.core.publisher.Flux
 @RestController
 class MeldingController(private val meldingRepository: MeldingRepository) {
 
-    val meldinger: List<Melding>
-        @GetMapping("melding")
+    val meldinger: List<Melding> @GetMapping("melding")
         get() = meldingRepository.findAll()
 }
